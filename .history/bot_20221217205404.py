@@ -1,12 +1,7 @@
-from discord.ext import commands
-from dotenv import load_dotenv
-from os import listdir, getenv
 import discord
-import asyncio
+from discord.ext import commands
 import json
-
-load_dotenv()
-TOKEN = getenv('TOKEN')
+import os
 
 with open("setting.json", mode='r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
@@ -26,7 +21,7 @@ async def load(ctx, extension):
 
 @bot.command()
 async def unload(ctx, extension):
-    bot.unload_extension(f'cmds.{extension}')
+    bot.unload_extensionload_extension(f'cmds.{extension}')
     await ctx.send(f'Unloaded {extension} done...')
 
 @bot.command()
@@ -34,19 +29,11 @@ async def reload(ctx, extension):
     bot.reload_extension(f'cmds.{extension}')
     await ctx.send(f'Reloaded {extension} done...')
 
-async def load_extensions():
-    for filename in listdir("./cmds"):
-        if filename.endswith('.py'):
-            await bot.load_extension(f"cmds.{filename[:-3]}")
-            print(f'Loaded {filename}.')
+for filename in os.listdir("./cmds"):
+    if filename.endswith('.py'):
+        bot.load_extension(f"cmds.{filename[:-3]}")
+        print(f'Loaded {filename}.')
+print('Done.')
 
-async def main():
-    async with bot:
-        await load_extensions()
-        await bot.start(TOKEN)
-        # await bot.run(jdata['TOKEN'])
-
-asyncio.run(main())
-
-# if __name__ == "__main__":
-#     bot.run(jdata['TOKEN'])
+if __name__ == "__main__":
+    bot.run(jdata['TOKEN'])

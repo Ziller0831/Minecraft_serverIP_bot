@@ -1,13 +1,11 @@
 from discord.ext import commands
 from dotenv import load_dotenv
-from os import listdir, getenv
 import discord
 import asyncio
 import json
+import os
 
-load_dotenv()
-TOKEN = getenv('TOKEN')
-
+load_dote
 with open("setting.json", mode='r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
 
@@ -35,7 +33,7 @@ async def reload(ctx, extension):
     await ctx.send(f'Reloaded {extension} done...')
 
 async def load_extensions():
-    for filename in listdir("./cmds"):
+    for filename in os.listdir("./cmds"):
         if filename.endswith('.py'):
             await bot.load_extension(f"cmds.{filename[:-3]}")
             print(f'Loaded {filename}.')
@@ -43,7 +41,7 @@ async def load_extensions():
 async def main():
     async with bot:
         await load_extensions()
-        await bot.start(TOKEN)
+        await bot.start(jdata['TOKEN'])
         # await bot.run(jdata['TOKEN'])
 
 asyncio.run(main())

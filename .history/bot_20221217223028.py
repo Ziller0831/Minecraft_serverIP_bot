@@ -43,7 +43,7 @@ async def load_extensions():
 async def main():
     async with bot:
         await load_extensions()
-        await bot.start(TOKEN)
+        await bot.start(jdata['TOKEN'])
         # await bot.run(jdata['TOKEN'])
 
 asyncio.run(main())
